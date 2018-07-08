@@ -1,11 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<conio.h>
+#include<ctype.h>
 
 typedef struct sectordetails
 {
-	char name[50];	
-	float amount;	
+    char name[50];
+    float amount;
 }sector;
 
 int main(){
@@ -17,477 +19,481 @@ int main(){
     int getint(const char *str);
     void welcome();
     void menu();
+    void clearscr();
 
     welcome();
-    system("pause");
-    system("cls");
+    printf("Press any key to continue");
+    getch();
+    clearscr();
 
+    do{
+        menu();
+        fgets(swtch_ch,50,stdin);
+        swtch=swtch_ch[0];
+        clearscr();
 
-do{
-    menu();
-    fgets(swtch_ch,50,stdin);
-    swtch=swtch_ch[0];
-    system("cls");
+        switch(swtch){
 
-    switch(swtch){
+            case 'a':{
 
-        case 'a':{
+                sector income[50];
+                int i=0,count=0,choice=1;
 
-            sector income[50]; //structure variable
-            int i=0,count=0,choice=1;
-
-            printf("\n\n---------------------------------------------------------INCOME---------------------------------------------------------\n\n");
-            printf("Enter the time for which you input the income: \n");
-            printf("     1.Week\n     2.month\n     3.year\n");
-            char s[50];
-            gets(s);
-            ui=getint(s);
-
-            while(choice==1&&(ui>0&&ui<4)){
-
-                printf("Enter income source details [%d]:\n",i+1);
-
-                printf("Source name?  ");
-                fgets(income[i].name,50,stdin);
-
-                printf("Amount? ");
+                printf("\n\n---------------------------------------------------------INCOME---------------------------------------------------------\n\n");
+                printf("Enter the time for which you input the income: \n");
+                printf("     1.Week\n     2.month\n     3.year\n");
                 char s[50];
                 gets(s);
-                income[i].amount=getfloat(s);
+                ui=getint(s);
 
-                totalincome+=income[i].amount;
+                while(choice==1&&(ui>0&&ui<4)){
 
-                i++;	
-                count++;
+                    printf("Enter income source details [%d]:\n",i+1);
 
-                printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
+                    printf("Source name?  ");
+                    fgets(income[i].name,50,stdin);
 
-            }
-            while(choice==2){
-                i--;count--;totalincome-=income[i].amount;income[i].name[0]='\0';income[i].amount=0;
+                    printf("Amount? ");
+                    char s[50];
+                    gets(s);
+                    income[i].amount=getfloat(s);
 
-                printf("Enter changed income source details [%d]:\n",i+1);
+                    totalincome+=income[i].amount;
 
-                printf("Source name?  ");
-                fgets(income[i].name,50,stdin);
+                    i++;
+                    count++;
 
-                printf("Amount? ");
-                char s[50];
-                gets(s);
-                income[i].amount=getfloat(s);
+                    printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
 
-                totalincome+=income[i].amount;
+                }
+                while(choice==2){
+                    i--;count--;totalincome-=income[i].amount;income[i].name[0]='\0';income[i].amount=0;
+
+                    printf("Enter changed income source details [%d]:\n",i+1);
+
+                    printf("Source name?  ");
+                    fgets(income[i].name,50,stdin);
+
+                    printf("Amount? ");
+                    char s[50];
+                    gets(s);
+                    income[i].amount=getfloat(s);
+
+                    totalincome+=income[i].amount;
 
 
-                totalincome+=income[i].amount;
+                    totalincome+=income[i].amount;
 
-                i++;	
-                count++;
+                    i++;
+                    count++;
 
-                printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
-
-            }
-
-            printf("All details are:\n\n");
-
-            for(i=0; i<count; i++){
-
-                if(income[i].amount!=0){
-
-                printf("%s=%.2f\n",income[i].name,income[i].amount);
+                    printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
 
                 }
 
-            }
 
-            printf("\n#### Total income: %.2f\n\n",totalincome);
+                printf("All details are:\n\n");
 
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-            system("cls");
+                for(i=0; i<count; i++){
+
+                    if(income[i].amount!=0){
+
+                        printf("%s=%.2f\n",income[i].name,income[i].amount);
+
+                    }
+
+                }
+
+                printf("\n#### Total income: %.2f\n\n",totalincome);
+
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+                clearscr();
             }break;
 
-        case 'b':{
+            case 'b':{
 
-            sector expense[50];
-            int i=0,count=0,choice=1;
+                sector expense[50];
+                int i=0,count=0,choice=1;
 
-            while(choice==1){
+                while(choice==1){
 
-                printf("\n\n---------------------------------------------------------EXPENSE--------------------------------------------------------\n\n");
-                printf("Enter expense field details [%d]:\n",i+1);
-                printf("field name?  ");
-                fgets(expense[i].name,50,stdin);
+                    printf("\n\n---------------------------------------------------------EXPENSE--------------------------------------------------------\n\n");
+                    printf("Enter expense field details [%d]:\n",i+1);
+                    printf("field name?  ");
+                    fgets(expense[i].name,50,stdin);
 
-                printf("Amount? ");
-                char s[50];
-                gets(s);
-                expense[i].amount=getfloat(s);
+                    printf("Amount? ");
+                    char s[50];
+                    gets(s);
+                    expense[i].amount=getfloat(s);
 
-                totalexpense+=expense[i].amount;
+                    totalexpense+=expense[i].amount;
 
-                i++;
-                count++;
+                    i++;
+                    count++;
 
-                printf("\nWant to add more fields?(press 1 to add,or 2 to modify or 0 to stop): \n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
+                    printf("\nWant to add more fields?(press 1 to add,or 2 to modify or 0 to stop): \n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
 
-            }
-            while(choice==2){
-                i--;count--;totalexpense-=expense[i].amount;expense[i].name[0]='\0';expense[i].amount=0;
+                }
+                while(choice==2){
+                    i--;count--;totalexpense-=expense[i].amount;expense[i].name[0]='\0';expense[i].amount=0;
 
-                printf("Enter changed expense field details [%d]:\n",i+1);
+                    printf("Enter changed expense field details [%d]:\n",i+1);
 
-                printf("field name?  ");
-                fgets(expense[i].name,50,stdin);
+                    printf("field name?  ");
+                    fgets(expense[i].name,50,stdin);
 
-                printf("Amount? ");
-                char s[50];
-                gets(s);
-                expense[i].amount=getfloat(s);
+                    printf("Amount? ");
+                    char s[50];
+                    gets(s);
+                    expense[i].amount=getfloat(s);
 
-                totalexpense+=expense[i].amount;
+                    totalexpense+=expense[i].amount;
 
-                i++;	
-                count++;
+                    i++;
+                    count++;
 
-                printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
+                    printf("\nWant to add more sources?(press 1 to add,or 2 to modify or 0 to stop): \n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
 
-            }
+                }
 
-               //print all items
-            printf("All details are:\n\n");
 
-            for(i=0; i<count; i++){
+                printf("All details are:\n\n");
 
-                if(expense[i].amount!=0){
+                for(i=0; i<count; i++){
 
-                printf("%s=%.2f\n",expense[i].name,expense[i].amount);
+                    if(expense[i].amount!=0){
 
-                 }
-	}
+                        printf("%s=%.2f\n",expense[i].name,expense[i].amount);
 
-            printf("\n#### Total expense: %.2f\n\n",totalexpense);
+                    }
+                }
 
-            if(totalexpense>totalincome){
-                printf("!!!Your expense is more than income, please keep your expenses in check!!!\n\n");
-	}
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
+                printf("\n#### Total expense: %.2f\n\n",totalexpense);
 
-            system("cls");//cleaning the screen
+                if(totalexpense>totalincome){
+                    printf("!!!Your expense is more than income, please keep your expenses in check!!!\n\n");
+                }
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+
+                clearscr();
             }break;
 
-        case 'c':{
-            int choice=1;
+            case 'c':{
+                int choice=1;
                 printf("\n\n---------------------------------------------------------SAVINGS--------------------------------------------------------\n\n");
-            while(choice==1){
-                printf("Enter the percentage of income to be saved: \n");
-                char s[50];
-                gets(s);
-                sav=getfloat(s);
+                while(choice==1){
+                    printf("Enter the percentage of income to be saved: \n");
+                    char s[50];
+                    gets(s);
+                    sav=getfloat(s);
 
-                printf("press 2 to change the value or 0 to continue\n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
+                    printf("press 2 to change the value or 0 to continue\n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
                 }
-            while(choice==2){
-                sav=0;
-                printf("Enter the  changed percentage of income to be saved: \n");
-                char s[50];
-                gets(s);
-                sav=getfloat(s);
-                printf("press 2 to change the value or 0 to continue\n");
-                char ch[50];
-                gets(ch);
-                choice=getint(ch);
-            }
+                while(choice==2){
+                    sav=0;
+                    printf("Enter the  changed percentage of income to be saved: \n");
+                    char s[50];
+                    gets(s);
+                    sav=getfloat(s);
+                    printf("press 2 to change the value or 0 to continue\n");
+                    char ch[50];
+                    gets(ch);
+                    choice=getint(ch);
+                }
 
-            savamount=(sav/100)*totalincome;
-            budgt=totalincome-savamount;
-            rembudgt=budgt-totalexpense;
+                savamount=(sav/100)*totalincome;
+                budgt=totalincome-savamount;
+                rembudgt=budgt-totalexpense;
 
-            printf("The savings amount is: %f\n\n",savamount);
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
+                printf("The savings amount is: %f\n\n",savamount);
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
 
-            system("cls");
+                clearscr();
             }break;
 
-        case 'd':{
-            printf("\n\n---------------------------------------------------------BUDGET---------------------------------------------------------\n\n");
+            case 'd':{
+                printf("\n\n---------------------------------------------------------BUDGET---------------------------------------------------------\n\n");
 
-            budgt=totalincome-savamount;
+                budgt=totalincome-savamount;
 
-            printf("Total budget after savings is: %.2f\n\n",budgt);
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
+                printf("Total budget after savings is: %.2f\n\n",budgt);
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
 
-            system("cls");
+                clearscr();
             }break;
 
-        case 'e':{
-            printf("\n\n---------------------------------------------------SAVINGS CONVERSION---------------------------------------------------\n\n");
+            case 'e':{
+                printf("\n\n---------------------------------------------------SAVINGS CONVERSION---------------------------------------------------\n\n");
 
-            switch(ui){
+                switch(ui){
 
-                case 1:printf("Savings in a month: %f\nSavings in a year: %f\n",savamount*4,savamount*48);
-                       break;
-                case 2:printf("Savings in a week: %f\nSavings in a year: %f\n",savamount/4,savamount*12);
-                       break;
-                case 3:printf("Savings in a week: %f\nSavings in a month: %f\n",savamount/48,savamount/12);
-                       break;
-                default:printf("invalid input or time range for savings is not set\n");
+                    case 1:printf("Savings in a month: %f\nSavings in a year: %f\n",savamount*4,savamount*48);
+                        break;
+                    case 2:printf("Savings in a week: %f\nSavings in a year: %f\n",savamount/4,savamount*12);
+                        break;
+                    case 3:printf("Savings in a week: %f\nSavings in a month: %f\n",savamount/48,savamount/12);
+                        break;
+                    default:printf("invalid input or time range for savings is not set\n");
                         break;
                 }
 
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-
-            system("cls");
-
-            }break;
-
-        case 'f':{
-
-            printf("\n\n------------------------------------------------RECOMMENDED EXPENDITURE-------------------------------------------------\n\n");
-
-            printf("The recommended expenditure amount based on your income is as follows:\n\n");
-            printf("**Category**        **Amount**\n\n");
-            printf("  Medical             %.2f-%.2f\n",.05*budgt,.10*budgt);
-            printf("  Housing             %.2f-%.2f\n",.25*budgt,.35*budgt);
-            printf("  Transport           %.2f-%.2f\n",.10*budgt,.15*budgt);
-            printf("  Food                %.2f-%.2f\n",.10*budgt,.15*budgt);
-            printf("  Utilities           %.2f-%.2f\n",.05*budgt,.10*budgt);
-            printf("  Recreation          %.2f-%.2f\n",.05*budgt,.10*budgt);
-            printf("  Clothing            %.2f-%.2f\n",.02*budgt,.05*budgt);
-            printf("  Personal            %.2f-%.2f\n",.05*budgt,.10*budgt);
-            printf("  Others              %.2f-%.2f\n",.10*budgt,.30*budgt);
-
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-
-            system("cls");
-
-            }break;
-
-        case 'g':{
-
-            printf("\n\n----------------------------------------------------REMAINING BUDGET----------------------------------------------------\n\n");
-
-            if(totalexpense>budgt){
-
-                printf("!!!Your expense is more than your available budget!!!\n\n");
                 printf("\n\nPress 1 to go back to main menu\n");
                 fgets(mainscn_ch,50,stdin);
                 mainscn=mainscn_ch[0];
 
-                system("cls");//cleaning the screen
-                break;
-                }
+                clearscr();
 
-            rembudgt=budgt-totalexpense;
-
-            printf("The remaining budget is: %.2f\n\n",rembudgt);
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-
-            system("cls");
             }break;
 
-        case 'h':{
+            case 'f':{
 
-            printf("\n\n------------------------------------------------------OVERALL DATA------------------------------------------------------\n\n");
+                printf("\n\n------------------------------------------------RECOMMENDED EXPENDITURE-------------------------------------------------\n\n");
 
-            switch(ui){
+                printf("The recommended expenditure amount based on your income is as follows:\n\n");
+                printf("**Category**        **Amount**\n\n");
+                printf("  Medical             %.2f-%.2f\n",.05*budgt,.10*budgt);
+                printf("  Housing             %.2f-%.2f\n",.25*budgt,.35*budgt);
+                printf("  Transport           %.2f-%.2f\n",.10*budgt,.15*budgt);
+                printf("  Food                %.2f-%.2f\n",.10*budgt,.15*budgt);
+                printf("  Utilities           %.2f-%.2f\n",.05*budgt,.10*budgt);
+                printf("  Recreation          %.2f-%.2f\n",.05*budgt,.10*budgt);
+                printf("  Clothing            %.2f-%.2f\n",.02*budgt,.05*budgt);
+                printf("  Personal            %.2f-%.2f\n",.05*budgt,.10*budgt);
+                printf("  Others              %.2f-%.2f\n",.10*budgt,.30*budgt);
 
-                case 1:printf("Data for a Week: \n\n");
-                       break;
-                case 2:printf("Data for a Month: \n\n");
-                       break;
-                case 3:printf("Data for a Year: \n\n");
-                       break;
-            }
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
 
-            printf("Total income: %.2f\nSaving percentage: %.2f%\nSaving amount: %.2f\nBudget: %.2f\nTotal Expenditure: %.2f\nRemaining Budget: %.2f\n",totalincome,sav,savamount,budgt,totalexpense,rembudgt);
+                clearscr();
 
-            if(totalexpense>budgt){
-
-                printf("!!!Your budget does not cover your expenditure!!!\n\n");
-            }
-
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-
-            system("cls");
             }break;
 
-        case 'i':{
+            case 'g':{
 
-            printf("\n\n-------------------------------------------------------DATA RESET-------------------------------------------------------\n\n");
+                printf("\n\n----------------------------------------------------REMAINING BUDGET----------------------------------------------------\n\n");
 
-            int choice;
-            printf("press the number indicating the data you want to reset:\n");
-            printf("1.Total Income\n2.Total expense\n3.Savings\n4.All value\n5.Go back without changing any value\n");
-            char ch[50];
-            gets(ch);
-            choice=getint(ch);
+                if(totalexpense>budgt){
 
-            switch(choice){
+                    printf("!!!Your expense is more than your available budget!!!\n\n");
+                    printf("\n\nPress 1 to go back to main menu\n");
+                    fgets(mainscn_ch,50,stdin);
+                    mainscn=mainscn_ch[0];
 
-                case 1:{
-                    totalincome=0;budgt=0;rembudgt=0;savamount=0;
-                    printf("Total Income is reset\n");
-                    break;
-                }
-                case 2:{
-                    totalexpense=0;
-                    printf("Total expense is reset\n\n");
-                    break;
-                }
-                case 3:{
-                    sav=0;savamount=0;
-                    printf("Saving amount is reset\n\n");
-                    break;
-                }
-                 case 4:{
-                     totalincome=0;totalexpense=0;budgt=0;rembudgt=0;sav=0;savamount=0;
-                    printf("All amount is reset\n\n");
+                    clearscr();
                     break;
                 }
 
-            }
+                rembudgt=budgt-totalexpense;
 
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
+                printf("The remaining budget is: %.2f\n\n",rembudgt);
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
 
-            system("cls");
+                clearscr();
             }break;
 
-        case 'j':{
+            case 'h':{
 
-            printf("\n\n----------------------------------------------------------SAVE----------------------------------------------------------\n\n");
+                printf("\n\n------------------------------------------------------OVERALL DATA------------------------------------------------------\n\n");
 
-            FILE*fpointer;
-            fpointer=fopen("Savedvalue.txt","w");
-            fprintf(fpointer,"Total income: %.1f\n",totalincome);
-            fprintf(fpointer,"Total expense: %.1f\n",totalexpense);
-            fprintf(fpointer,"Save percentage: %.1f\n",sav);
-            fprintf(fpointer,"Saved amount: %.1f\n",savamount);
-            fprintf(fpointer,"Budget: %.1f\n",budgt);
-            fprintf(fpointer,"Remaining budget: %.1f\n",rembudgt);
-            fclose(fpointer);
+                switch(ui){
 
-            printf("Your data is saved\n");
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
-
-            system("cls");
-            }break;
-
-        case 'k':{
-
-            printf("\n\n----------------------------------------------------------LOAD----------------------------------------------------------\n\n");
-
-            FILE*fpointer;
-            fpointer=fopen("Savedvalue.txt","r");
-
-            if((fpointer=fopen("Savedvalue.txt","r"))!=NULL){
-
-                char singleline[20][50];
-                int i=0;
-
-                while(!feof(fpointer)){
-                fgets(singleline[i],50,fpointer);
-                i++;
+                    case 1:printf("Data for a Week: \n\n");
+                        break;
+                    case 2:printf("Data for a Month: \n\n");
+                        break;
+                    case 3:printf("Data for a Year: \n\n");
+                        break;
+                    default: break;
                 }
-                totalincome=getfloat(singleline[0]);
-                totalexpense=getfloat(singleline[1]);
-                sav=getfloat(singleline[2]);
-                savamount=getfloat(singleline[3]);
-                budgt=getfloat(singleline[4]);
-                rembudgt=getfloat(singleline[5]);
 
-            fclose(fpointer);
+                printf("Total income: %.2f\nSaving percentage: %.2f\nSaving amount: %.2f\nBudget: %.2f\nTotal Expenditure: %.2f\nRemaining Budget: %.2f\n",totalincome,sav,savamount,budgt,totalexpense,rembudgt);
 
-            printf("Your data is loaded(go to function 'h' to check loaded data)\n\n");
-            }
-            else{
-                printf("Error in loading data or data is not saved\nPlease create a save file or check your program directory\n");
-            }
-            printf("\n\nPress 1 to go back to main menu\n");
-            fgets(mainscn_ch,50,stdin);
-            mainscn=mainscn_ch[0];
+                if(totalexpense>budgt){
 
-            system("cls");
+                    printf("!!!Your budget does not cover your expenditure!!!\n\n");
+                }
+
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+
+                clearscr();
+            }break;
+
+            case 'i':{
+
+                printf("\n\n-------------------------------------------------------DATA RESET-------------------------------------------------------\n\n");
+
+                int choice;
+                printf("press the number indicating the data you want to reset:\n");
+                printf("1.Total Income\n2.Total expense\n3.Savings\n4.All value\n5.Go back without changing any value\n");
+                char ch[50];
+                gets(ch);
+                choice=getint(ch);
+
+                switch(choice){
+
+                    case 1:{
+                        totalincome=0;budgt=0;rembudgt=0;savamount=0;
+                        printf("Total Income is reset\n");
+                        break;
+                    }
+                    case 2:{
+                        totalexpense=0;
+                        printf("Total expense is reset\n\n");
+                        break;
+                    }
+                    case 3:{
+                        sav=0;savamount=0;
+                        printf("Saving amount is reset\n\n");
+                        break;
+                    }
+                    case 4:{
+                        totalincome=0;totalexpense=0;budgt=0;rembudgt=0;sav=0;savamount=0;
+                        printf("All amount is reset\n\n");
+                        break;
+                    }
+                    default: break;
+
+                }
+
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+
+                clearscr();
+            }break;
+
+            case 'j':{
+
+                printf("\n\n----------------------------------------------------------SAVE----------------------------------------------------------\n\n");
+
+                FILE*fpointer;
+                fpointer=fopen("Savedvalue.txt","w");
+                fprintf(fpointer,"Total income: %.1f\n",totalincome);
+                fprintf(fpointer,"Total expense: %.1f\n",totalexpense);
+                fprintf(fpointer,"Save percentage: %.1f\n",sav);
+                fprintf(fpointer,"Saved amount: %.1f\n",savamount);
+                fprintf(fpointer,"Budget: %.1f\n",budgt);
+                fprintf(fpointer,"Remaining budget: %.1f\n",rembudgt);
+                fclose(fpointer);
+
+                printf("Your data is saved\n");
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+
+                clearscr();
+            }break;
+
+            case 'k':{
+
+                printf("\n\n----------------------------------------------------------LOAD----------------------------------------------------------\n\n");
+
+                FILE*fpointer;
+                fpointer=fopen("Savedvalue.txt","r");
+
+                if((fpointer=fopen("Savedvalue.txt","r"))!=NULL){
+
+                    char singleline[20][50];
+                    int i=0;
+
+                    while(!feof(fpointer)){
+                        fgets(singleline[i],50,fpointer);
+                        i++;
+                    }
+                    totalincome=getfloat(singleline[0]);
+                    totalexpense=getfloat(singleline[1]);
+                    sav=getfloat(singleline[2]);
+                    savamount=getfloat(singleline[3]);
+                    budgt=getfloat(singleline[4]);
+                    rembudgt=getfloat(singleline[5]);
+
+                    fclose(fpointer);
+
+                    printf("Your data is loaded(go to function 'h' to check loaded data)\n\n");
+                }
+                else{
+                    printf("Error in loading data or data is not saved\nPlease create a save file or check your program directory\n");
+                }
+                printf("\n\nPress 1 to go back to main menu\n");
+                fgets(mainscn_ch,50,stdin);
+                mainscn=mainscn_ch[0];
+
+                clearscr();
             }break;
 
 
-        case 'l':{
-            printf("\n\n----------------------------------------------------------EXIT----------------------------------------------------------\n\n");
+            case 'l':{
+                printf("\n\n----------------------------------------------------------EXIT----------------------------------------------------------\n\n");
 
-            char c;
-            printf("Are you sure you want to exit?(y/n)\n");
-            scanf("%c",&c);
-            getchar();
-
-            if(c=='y'||c=='Y'){
-                printf("Thank you for using our program\n\nPress any key to exit..");
+                char c;
+                printf("Are you sure you want to exit?(y/n)\n");
+                scanf("%c",&c);
                 getchar();
-                exit(0);
+
+                if(c=='y'||c=='Y'){
+                    printf("Thank you for using our program\n\nPress any key to exit..");
+                    getchar();
+                    exit(0);
                 }
-            else{
+                else{
+                    printf("\n\nPress 1 to go back to main menu\n");
+                    fgets(mainscn_ch,50,stdin);
+                    mainscn=mainscn_ch[0];
+                    clearscr();
+                }
+            }
+                break;
+
+            default:{
+
+                printf("invalid input\n");
                 printf("\n\nPress 1 to go back to main menu\n");
                 fgets(mainscn_ch,50,stdin);
                 mainscn=mainscn_ch[0];
-                system("cls");
-                }
-            }
-            break;
 
-        default:{
+                clearscr();
+            }break;
+
+        }while(mainscn!='1'){
 
             printf("invalid input\n");
             printf("\n\nPress 1 to go back to main menu\n");
             fgets(mainscn_ch,50,stdin);
             mainscn=mainscn_ch[0];
 
-            system("cls");
-            }break;
+            clearscr();}
+    }while(mainscn=='1');
 
-        }while(mainscn!='1'){
-
-        printf("invalid input\n");
-        printf("\n\nPress 1 to go back to main menu\n");
-        fgets(mainscn_ch,50,stdin);
-        mainscn=mainscn_ch[0];
-
-        system("cls");}
-  }while(mainscn=='1');
-
-return 0;
+    return 0;
 }
 
 float getfloat(const char *str)
@@ -518,7 +524,7 @@ void welcome(){
 
 void menu(){
     printf("\n\n--------------------------------------------------------MAIN MENU-------------------------------------------------------");
-    printf("\n\n\tPlease enter the alphabet which indicates the function you want to proceed with:\n\n");//options for users
+    printf("\n\n\tPlease enter the alphabet which indicates the function you want to proceed with:\n\n");
     printf("        a-> Enter income\n");
     printf("        b-> Enter expenditure.\n");
     printf("        c-> Enter intended saving percentage to get the amount.(income function is required for calculation)\n");
@@ -532,4 +538,8 @@ void menu(){
     printf("        k-> Load the previously saved data\n");
     printf("        l-> Exit\n");
     printf("\n\n\n\n\n\n--------------------------------------------------------*********-------------------------------------------------------\n");
+}
+
+void clearscr(){
+    system("cls||clear");
 }
